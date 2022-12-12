@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Arrondissement;
 use App\Entity\Commune;
 use App\Entity\Departement;
+use App\Entity\RapportOuverture;
 use App\Entity\Utilisateur;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
@@ -61,6 +62,7 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+        yield MenuItem::linkToCrud('Rapports d\'ouverture', 'fas fa-report', RapportOuverture::class);
         yield MenuItem::linkToCrud('Départements', 'fas fa-list', Departement::class);
         yield MenuItem::linkToCrud('Communes', 'fas fa-list', Commune::class);
         yield MenuItem::linkToCrud('Arrondissements', 'fas fa-list', Arrondissement::class);

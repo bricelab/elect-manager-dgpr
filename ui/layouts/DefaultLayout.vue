@@ -1,13 +1,20 @@
 <template>
-  <v-app id="inspire" theme="dark">
-    <v-navigation-drawer v-model="drawer">
-      <!--  -->
-    </v-navigation-drawer>
+  <v-app theme="light">
 
-    <v-app-bar>
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+    <v-app-bar
+        color="purple"
+        prominent
+    >
+<!--      <template v-slot:prepend>-->
+<!--        <v-app-bar-nav-icon></v-app-bar-nav-icon>-->
+<!--      </template>-->
+      <v-app-bar-title class="text-uppercase">
+        Elect Manager
+      </v-app-bar-title>
 
-      <v-toolbar-title>Application</v-toolbar-title>
+<!--      <template v-slot:append>-->
+<!--        <v-btn icon="mdi-dots-vertical"></v-btn>-->
+<!--      </template>-->
     </v-app-bar>
 
     <v-main>
@@ -17,11 +24,7 @@
 </template>
 
 <script setup>
-import {ref} from 'vue'
-
-const drawer = ref(null)
 </script>
 
 <style scoped>
-
 </style>

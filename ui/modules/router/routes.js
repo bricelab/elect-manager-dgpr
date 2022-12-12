@@ -7,18 +7,37 @@ export const routes = [
         name: 'Default',
         component: DefaultLayout,
         // redirect: `/${SIDEBAR_MENU_ITEMS.HOME}`,
-        redirect: '/home',
+        redirect: '/accueil',
         children: [
             {
                 name: 'Home',
-                path: '/home',
+                path: '/accueil',
                 component: () => import('@/views/Home.vue'),
             },
-            // {
-            //     name: 'Appointments',
-            //     path: `/${SIDEBAR_MENU_ITEMS.CALENDAR}`,
-            //     component: () => import('@/views/calendar/Appointments.vue'),
-            // },
+            {
+                name: 'RapportOuverture',
+                // path: `/${SIDEBAR_MENU_ITEMS.CALENDAR}`,
+                path: `/rapport-d-ouverture`,
+                component: () => import('@/views/RapportOuverture.vue'),
+            },
+            {
+                name: 'RapportIncidents',
+                // path: `/${SIDEBAR_MENU_ITEMS.CALENDAR}`,
+                path: `/rapport-d-incident`,
+                component: () => import('@/views/RapportIncidents.vue'),
+            },
+            {
+                name: 'RemonteesResultats',
+                // path: `/${SIDEBAR_MENU_ITEMS.CALENDAR}`,
+                path: `/remontees-resultats`,
+                component: () => import('@/views/RemonteesResultats.vue'),
+            },
+            {
+                name: 'Login',
+                // path: `/${SIDEBAR_MENU_ITEMS.CALENDAR}`,
+                path: `/login`,
+                component: () => import('@/views/Login.vue'),
+            },
             // {
             //     name: 'DossierMedical',
             //     path: `/${SIDEBAR_MENU_ITEMS.DOSSIER_MEDICAL}`,

@@ -1,0 +1,176 @@
+<template>
+  <v-container>
+    <v-form
+        ref="form"
+        v-model="valid"
+        lazy-validation
+    >
+      <v-row>
+        <v-col cols="12">
+          <div class="text-subtitle-2 text-purple">
+            Arrondissement de Togba
+          </div>
+          <div class="text-h5 text-purple">
+            Remontée de résultats du scrutin
+          </div>
+        </v-col>
+        <v-col cols="12">
+          <v-select
+              label="Centre de vote"
+              clearable
+              clear-icon="mdi-close-circle"
+              :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']"
+              variant="underlined"
+          ></v-select>
+
+          <v-select
+              label="Poste de vote"
+              clearable
+              clear-icon="mdi-close-circle"
+              :items="['California2', 'Colorado2', 'Florida2', 'Georgia2', 'Texas2', 'Wyoming2']"
+              variant="underlined"
+          ></v-select>
+
+          <v-text-field
+              label="Nombre d'inscrits"
+              type="number"
+              :model-value="hour"
+              clearable
+              clear-icon="mdi-close-circle"
+              variant="underlined"
+          ></v-text-field>
+
+          <v-text-field
+              label="Nombre de votants"
+              type="number"
+              :model-value="hour"
+              clearable
+              clear-icon="mdi-close-circle"
+              variant="underlined"
+          ></v-text-field>
+
+          <v-text-field
+              label="Bulletins nuls"
+              type="number"
+              :model-value="hour"
+              clearable
+              clear-icon="mdi-close-circle"
+              variant="underlined"
+          ></v-text-field>
+
+          <v-text-field
+              label="Union progressiste pour le renouveau (UPR)"
+              type="number"
+              :model-value="hour"
+              clearable
+              clear-icon="mdi-close-circle"
+              variant="underlined"
+          ></v-text-field>
+
+          <v-text-field
+              label="Bloc républicain (BR)"
+              type="number"
+              :model-value="hour"
+              clearable
+              clear-icon="mdi-close-circle"
+              variant="underlined"
+          ></v-text-field>
+
+          <v-text-field
+              label="Forces Cauris pour un Bénin émergent (FCBE)"
+              type="number"
+              :model-value="hour"
+              clearable
+              clear-icon="mdi-close-circle"
+              variant="underlined"
+          ></v-text-field>
+
+          <v-text-field
+              label="Union pour le développement d'un Bénin nouveau (UDBN)"
+              type="number"
+              :model-value="hour"
+              clearable
+              clear-icon="mdi-close-circle"
+              variant="underlined"
+          ></v-text-field>
+
+          <v-text-field
+              label="Les Démocrates (LD)"
+              type="number"
+              :model-value="hour"
+              clearable
+              clear-icon="mdi-close-circle"
+              variant="underlined"
+          ></v-text-field>
+
+          <v-text-field
+              label="Mouvement populaire de libération (MPL)"
+              type="number"
+              :model-value="hour"
+              clearable
+              clear-icon="mdi-close-circle"
+              variant="underlined"
+          ></v-text-field>
+
+          <v-text-field
+              label="Mouvement des élites engagées pour l’émancipation du Bénin (MOELE-BÉNIN)"
+              type="number"
+              :model-value="hour"
+              clearable
+              clear-icon="mdi-close-circle"
+              variant="underlined"
+          ></v-text-field>
+        </v-col>
+        <v-col cols="6">
+          <v-btn
+              color="grey"
+              variant="outlined"
+              @click="back"
+          >
+            Annuler
+          </v-btn>
+        </v-col>
+        <v-col
+            cols="6"
+            class="text-end"
+        >
+          <v-btn
+              color="success"
+              :disabled="!valid"
+              @click="validate"
+          >
+            Valider
+          </v-btn>
+        </v-col>
+      </v-row>
+    </v-form>
+  </v-container>
+</template>
+
+<script setup>
+import {ref} from 'vue'
+import {useRouter} from 'vue-router'
+
+const router = useRouter()
+
+const hour = ref('')
+
+const form = ref()
+const valid = ref(false)
+const rules = [v => v.length >= 3 || 'Minimum 03 caractères']
+
+const back = () => {
+  router.back()
+}
+const validate = async () => {
+  valid.value = await form.value.validate()
+
+  if (valid.value) {
+    alert('Ok')
+  }
+}
+</script>
+
+<style scoped>
+
+</style>
