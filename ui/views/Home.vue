@@ -1,7 +1,11 @@
 <template>
-  <v-container>
+  <v-container @show-alert="console.log('Test')">
     <v-row dense>
-      <v-col cols="12">
+      <v-col cols="12" class="mt-5" v-if="alertStore.show">
+        <v-alert :type="alertStore.type" :title="alertStore.title" closable>{{ alertStore.message }}</v-alert>
+      </v-col>
+
+      <v-col cols="12" class="mt-5 mb-3">
         <v-card theme="light">
           <v-card-title class="text-h5">
             Rapport d'ouverture
@@ -24,7 +28,7 @@
         </v-card>
       </v-col>
 
-      <v-col cols="12">
+      <v-col cols="12" class="mb-3">
         <v-card theme="light">
           <v-card-title class="text-h5">
             Incidents
@@ -47,7 +51,7 @@
         </v-card>
       </v-col>
 
-      <v-col cols="12">
+      <v-col cols="12" class="mb-3">
         <v-card theme="light">
           <v-card-title class="text-h5">
             Remontée des résultats
@@ -76,8 +80,10 @@
 
 <script setup>
 import {useRouter} from 'vue-router'
+import {useAlertStore} from '@/store/alert'
 
 const router = useRouter()
+const alertStore = useAlertStore()
 
 const startOpenReport = () => {
   router.push('/rapport-d-ouverture')

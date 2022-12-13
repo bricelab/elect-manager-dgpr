@@ -150,8 +150,12 @@
 <script setup>
 import {ref} from 'vue'
 import {useRouter} from 'vue-router'
+import {useAlertStore} from '@/store/alert'
 
 const router = useRouter()
+const alertStore = useAlertStore()
+
+alertStore.reset()
 
 const hour = ref('')
 

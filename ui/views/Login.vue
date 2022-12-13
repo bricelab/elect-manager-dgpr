@@ -6,18 +6,12 @@
           @submit.prevent="onSubmit"
       >
         <v-text-field
-            v-model="email"
-            :readonly="loading"
-            :rules="[required]"
             class="mb-2"
             clearable
             label="Email"
         ></v-text-field>
 
         <v-text-field
-            v-model="password"
-            :readonly="loading"
-            :rules="[required]"
             clearable
             label="Password"
             placeholder="Enter your password"
@@ -26,8 +20,6 @@
         <br>
 
         <v-btn
-            :disabled="!form"
-            :loading="loading"
             block
             color="success"
             size="large"
@@ -42,19 +34,6 @@
 </template>
 
 <script setup>
-import {useRouter} from 'vue-router'
-
-const router = useRouter()
-
-const startOpenReport = () => {
-  router.push('/rapport-d-ouverture')
-}
-const startIncidentReport = () => {
-  router.push('/rapport-d-incident')
-}
-const startResultReport = () => {
-  router.push('/remontees-resultats')
-}
 </script>
 
 <style scoped>

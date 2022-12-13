@@ -19,47 +19,49 @@
               counter
               label="Ouverture"
               :rules="rules"
-              :model-value="ouverture"
+              v-model="rapportOuverture.ouverture"
               clearable
               clear-icon="mdi-close-circle"
               variant="underlined"
+              :readonly="loading"
           ></v-textarea>
 
           <v-textarea
               counter
               label="Incidents observés"
               :rules="rules"
-              :model-value="incidents"
+              v-model="rapportOuverture.incidents"
               clearable
               clear-icon="mdi-close-circle"
               variant="underlined"
+              :readonly="loading"
           ></v-textarea>
 
           <v-textarea
               counter
               label="Difficultés rencontrées"
               :rules="rules"
-              :model-value="difficultes"
+              v-model="rapportOuverture.difficultes"
               clearable
               clear-icon="mdi-close-circle"
               variant="underlined"
+              :readonly="loading"
           ></v-textarea>
         </v-col>
-        <v-col cols="6">
+        <v-col cols="12" class="text-end">
           <v-btn
               color="grey"
-              variant="outlined"
+              variant="text"
+              class="mr-2"
               @click="back"
           >
             Annuler
           </v-btn>
-        </v-col>
-        <v-col
-            cols="6"
-            class="text-end"
-        >
+
           <v-btn
               color="success"
+              :loading="loading"
+              :disabled="!valid"
               @click="validate"
           >
             Envoyer
@@ -73,19 +75,24 @@
 <script setup>
 import {ref} from 'vue'
 import {useRouter} from 'vue-router'
-import {envoyerRapportOuverture} from "../services/rapport-ouverture";
+import {envoyerRapportOuverture} from '@/services/rapport-ouverture'
+import {useAlertStore} from '@/store/alert'
 
 const router = useRouter()
+const alertStore = useAlertStore()
+
+alertStore.reset()
 
 const rapportOuverture = ref({
   id: 0,
   arrondissement: '/api/arrondissements/156',
   ouverture: '',
   incidents: '',
-  difficulties: '',
+  difficultes: '',
 })
 
 const form = ref()
+const loading = ref(false)
 const valid = ref(false)
 const rules = [v => v.length >= 3 || 'Minimum 03 caractères']
 
@@ -98,15 +105,28 @@ const resetData = () => {
     arrondissement: '/api/arrondissements/156',
     ouverture: '',
     incidents: '',
-    difficulties: '',
+    difficultes: '',
   }
 }
 const validate = async () => {
+  loading.value = true
   valid.value = await form.value.validate()
 
   if (valid.value) {
-    rapportOuverture.value = await envoyerRapportOuverture(rapportOuverture.value)
+    try {
+      rapportOuverture.value = await envoyerRapportOuverture(rapportOuverture.value)
+      alertStore.type = 'success'
+      alertStore.title = 'Succès'
+      alertStore.message = 'Informations soumises avec succès !'
+    } catch (e) {
+      alertStore.type = 'error'
+      alertStore.title = 'Erreur'
+      alertStore.message = 'Une erreur s\'est produite. Veuillez réessayer plus tard svp !'
+    }
+    alertStore.show = true
     resetData()
+    loading.value = false
+    back()
   }
 }
 </script>

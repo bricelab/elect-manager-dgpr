@@ -1,4 +1,4 @@
-import axios from "../../modules/axios";
+import axios from '@/modules/axios';
 
 /**
  * @typedef {Object} RapportOuverture
@@ -6,7 +6,7 @@ import axios from "../../modules/axios";
  * @property {string} arrondissement URI de l'arrondissement
  * @property {string} ouverture Point des événements d'ouverture
  * @property {string} incidents Incidents observés à l'ouverture
- * @property {string} difficulties Difficultés rencontrée à l'ouverture
+ * @property {string} difficultes Difficultés rencontrée à l'ouverture
  */
 
 /**
@@ -15,19 +15,19 @@ import axios from "../../modules/axios";
  * @param {RapportOuverture} rapportOuverture
  * @return {Promise<RapportOuverture>}
  */
-export function envoyerRapportOuverture({arrondissement, ouverture, incidents, difficulties}) {
+export function envoyerRapportOuverture({arrondissement, ouverture, incidents, difficultes}) {
     return axios.post('/api/rapport-ouverture', {
         arrondissement,
         ouverture,
         incidents,
-        difficulties,
+        difficultes,
     }).then((response) => {
         return {
             id: response.data.id,
             arrondissement,
             ouverture,
             incidents,
-            difficulties,
+            difficultes,
         }
     })
 }
