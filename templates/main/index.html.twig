@@ -3,5 +3,5 @@
 {% block title %} {{ parent() }}| Remontées des résultats de scrutin{% endblock %}
 
 {% block body %}
-    <div id="app"></div>
+    <div {{ stimulus_controller('main-vue-app') }}></div>
 {% endblock %}

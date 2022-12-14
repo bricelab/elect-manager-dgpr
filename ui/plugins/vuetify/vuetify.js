@@ -7,7 +7,7 @@ import * as directives from 'vuetify/directives'
 import { aliases, mdi } from 'vuetify/iconsets/mdi'
 import { fa } from 'vuetify/iconsets/fa'
 
-export default createVuetify({
+export const vuetify = createVuetify({
     components,
     directives,
     icons: {

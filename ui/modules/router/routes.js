@@ -12,32 +12,32 @@ export const routes = [
             {
                 name: 'Home',
                 path: '/accueil',
-                component: () => import('@/views/Home.vue'),
+                component: () => import('@/pages/Home.vue'),
             },
             {
                 name: 'RapportOuverture',
                 // path: `/${SIDEBAR_MENU_ITEMS.CALENDAR}`,
                 path: `/rapport-d-ouverture`,
-                component: () => import('@/views/RapportOuverture.vue'),
+                component: () => import('@/pages/RapportOuverture.vue'),
             },
             {
                 name: 'RapportIncidents',
                 // path: `/${SIDEBAR_MENU_ITEMS.CALENDAR}`,
                 path: `/rapport-d-incident`,
-                component: () => import('@/views/RapportIncidents.vue'),
+                component: () => import('@/pages/RapportIncidents.vue'),
             },
             {
                 name: 'RemonteesResultats',
                 // path: `/${SIDEBAR_MENU_ITEMS.CALENDAR}`,
                 path: `/remontees-resultats`,
-                component: () => import('@/views/RemonteesResultats.vue'),
+                component: () => import('@/pages/RemonteesResultats.vue'),
             },
-            {
-                name: 'Login',
-                // path: `/${SIDEBAR_MENU_ITEMS.CALENDAR}`,
-                path: `/login`,
-                component: () => import('@/views/Login.vue'),
-            },
+            // {
+            //     name: 'Login',
+            //     // path: `/${SIDEBAR_MENU_ITEMS.CALENDAR}`,
+            //     path: `/login`,
+            //     component: () => import('@/views/Login.vue'),
+            // },
             // {
             //     name: 'DossierMedical',
             //     path: `/${SIDEBAR_MENU_ITEMS.DOSSIER_MEDICAL}`,

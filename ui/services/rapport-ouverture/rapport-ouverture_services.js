@@ -1,4 +1,4 @@
-import axios from '@/modules/axios';
+import axios from '@/modules/axios/axios';
 
 /**
  * @typedef {Object} RapportOuverture

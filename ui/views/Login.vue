@@ -1,41 +1,71 @@
 <template>
-  <v-container>
-    <v-card class="mx-auto px-6 py-8" max-width="344">
-      <v-form
-          v-model="form"
-          @submit.prevent="onSubmit"
-      >
-        <v-text-field
-            class="mb-2"
-            clearable
-            label="Email"
-        ></v-text-field>
+  <v-app theme="light">
+    <v-app-bar
+        color="purple"
+        prominent
+    >
+      <v-app-bar-title class="text-uppercase">
+        Elect Manager
+      </v-app-bar-title>
+    </v-app-bar>
 
-        <v-text-field
-            clearable
-            label="Password"
-            placeholder="Enter your password"
-        ></v-text-field>
-
-        <br>
-
-        <v-btn
-            block
-            color="success"
-            size="large"
-            type="submit"
-            variant="elevated"
+    <v-main>
+      <v-card class="mx-auto px-6 py-8 mt-5" max-width="344">
+        <v-alert type="error" v-if="isError" class="mb-5">{{ error }}</v-alert>
+        <v-form
+            v-model="form"
+            method="post"
         >
-          Sign In
-        </v-btn>
-      </v-form>
-    </v-card>
-  </v-container>
+          <v-text-field
+              v-model="email"
+              :rules="[required]"
+              class="mb-2"
+              clearable
+              label="Adresse email"
+              variant="underlined"
+              name="_username"
+          ></v-text-field>
+
+          <v-text-field
+              :rules="[required]"
+              clearable
+              label="Mot de passe"
+              placeholder="Entrez votre mot de passe"
+              variant="underlined"
+              name="_password"
+              type="password"
+          ></v-text-field>
+
+          <br>
+
+          <v-btn
+              :disabled="!form"
+              block
+              color="purple"
+              size="large"
+              type="submit"
+              variant="flat"
+          >
+            Se connecter
+          </v-btn>
+        </v-form>
+      </v-card>
+    </v-main>
+  </v-app>
 </template>
 
 <script setup>
+import {ref} from 'vue'
+
+const form = ref(false)
+const email = ref(window.lastUsername)
+const error = ref(null)
+const isError = ref(false)
+
+if (window.error) {
+  error.value = window.error
+  isError.value = true
+}
+
+const required = (v) => !!v || 'Ce champ est obligatoire.'
 </script>
-
-<style scoped>
-
-</style>

@@ -34,21 +34,20 @@
               variant="underlined"
           ></v-textarea>
         </v-col>
-        <v-col cols="6">
+        <v-col cols="12" class="text-end">
           <v-btn
               color="grey"
-              variant="outlined"
+              variant="text"
+              class="mr-2"
               @click="back"
           >
             Annuler
           </v-btn>
-        </v-col>
-        <v-col
-            cols="6"
-            class="text-end"
-        >
+
           <v-btn
               color="success"
+              :loading="loading"
+              :disabled="!valid"
               @click="validate"
           >
             Signaler
@@ -62,7 +61,7 @@
 <script setup>
 import {ref} from 'vue'
 import {useRouter} from 'vue-router'
-import {useAlertStore} from '@/store/alert'
+import {useAlertStore} from '@/stores/alert/alert-store'
 
 const router = useRouter()
 const alertStore = useAlertStore()
@@ -73,6 +72,7 @@ const hour = ref('')
 const incidents = ref('')
 
 const form = ref()
+const loading = ref(false)
 const valid = ref(false)
 const rules = [v => v.length >= 3 || 'Minimum 03 caractères']
 

@@ -1,5 +1,5 @@
 <template>
-  <v-container @show-alert="console.log('Test')">
+  <v-container>
     <v-row dense>
       <v-col cols="12" class="mt-5" v-if="alertStore.show">
         <v-alert :type="alertStore.type" :title="alertStore.title" closable>{{ alertStore.message }}</v-alert>
@@ -80,7 +80,7 @@
 
 <script setup>
 import {useRouter} from 'vue-router'
-import {useAlertStore} from '@/store/alert'
+import {useAlertStore} from '@/stores/alert/alert-store'
 
 const router = useRouter()
 const alertStore = useAlertStore()

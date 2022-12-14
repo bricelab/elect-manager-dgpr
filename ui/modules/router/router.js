@@ -2,7 +2,7 @@ import process from 'process'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { routes } from '@/modules/router/routes'
 
-export default createRouter ({
+export const router = createRouter ({
     history: createWebHashHistory(process.env.BASE_URL),
     routes,
     scrollBehavior() {

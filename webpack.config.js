@@ -30,11 +30,12 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
-    .addEntry('app', './ui/app.js')
-    .addEntry('login', './ui/login.js')
+    .addEntry('main', './ui/main.js')
+    // .addEntry('main', './ui/apps/main/main.js')
+    // .addEntry('login', './ui/apps/login/login.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
-    // .enableStimulusBridge('./ui/controllers.json')
+    .enableStimulusBridge('./ui/stimulus/controllers.json')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()

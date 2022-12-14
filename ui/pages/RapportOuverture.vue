@@ -75,8 +75,8 @@
 <script setup>
 import {ref} from 'vue'
 import {useRouter} from 'vue-router'
-import {envoyerRapportOuverture} from '@/services/rapport-ouverture'
-import {useAlertStore} from '@/store/alert'
+import {envoyerRapportOuverture} from '@/services/rapport-ouverture/rapport-ouverture_services'
+import {useAlertStore} from '@/stores/alert/alert-store'
 
 const router = useRouter()
 const alertStore = useAlertStore()
