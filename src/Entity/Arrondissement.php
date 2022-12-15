@@ -8,6 +8,7 @@ use ApiPlatform\Metadata\GetCollection;
 use App\Repository\ArrondissementRepository;
 use Bricelab\Doctrine\TimestampSetter;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ArrondissementRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -24,9 +25,11 @@ class Arrondissement
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['read:Item:Me'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['read:Item:Me'])]
     private ?string $nom = null;
 
     #[ORM\Column(nullable: true)]
@@ -80,5 +83,17 @@ class Arrondissement
         $this->commune = $commune;
 
         return $this;
+    }
+
+    #[Groups(['read:Item:Me'])]
+    public function getCommuneUri(): string
+    {
+        return '/api/communes/' . $this->commune->getId();
+    }
+
+    #[Groups(['read:Item:Me'])]
+    public function getRapportOuvertureRempli():bool
+    {
+        return false;
     }
 }

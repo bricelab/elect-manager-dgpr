@@ -8,7 +8,7 @@
       <v-row>
         <v-col cols="12">
           <div class="text-subtitle-2 text-purple">
-            Arrondissement de Togba
+            Arrondissement de <span class="fw-bold">{{ userStore.arrondissementName }}</span>
           </div>
           <div class="text-h5 text-purple">
             Rapport d'ouverture de scrutin
@@ -77,9 +77,11 @@ import {ref} from 'vue'
 import {useRouter} from 'vue-router'
 import {envoyerRapportOuverture} from '@/services/rapport-ouverture/rapport-ouverture_services'
 import {useAlertStore} from '@/stores/alert/alert-store'
+import {useUserStore} from '@/stores/user/user-store'
 
 const router = useRouter()
 const alertStore = useAlertStore()
+const userStore = useUserStore()
 
 alertStore.reset()
 

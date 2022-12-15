@@ -1,11 +1,15 @@
 <template>
   <v-container>
     <v-row dense>
+      <h1 class="text-h2 text-purple mt-5 mb-5">
+        Bienvenue {{ userStore.fullName }}
+      </h1>
+
       <v-col cols="12" class="mt-5" v-if="alertStore.show">
         <v-alert :type="alertStore.type" :title="alertStore.title" closable>{{ alertStore.message }}</v-alert>
       </v-col>
 
-      <v-col cols="12" class="mt-5 mb-3">
+      <v-col cols="12" class="mt-5 mb-3" v-if="!userStore.rapportOuvertureRempli">
         <v-card theme="light">
           <v-card-title class="text-h5">
             Rapport d'ouverture
@@ -81,9 +85,11 @@
 <script setup>
 import {useRouter} from 'vue-router'
 import {useAlertStore} from '@/stores/alert/alert-store'
+import {useUserStore} from '@/stores/user/user-store'
 
 const router = useRouter()
 const alertStore = useAlertStore()
+const userStore = useUserStore()
 
 const startOpenReport = () => {
   router.push('/rapport-d-ouverture')

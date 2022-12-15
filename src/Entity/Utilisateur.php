@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -19,9 +20,11 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['read:Item:Me'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Groups(['read:Item:Me'])]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -34,9 +37,11 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['read:Item:Me'])]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['read:Item:Me'])]
     private ?string $prenoms = null;
 
     #[ORM\ManyToMany(targetEntity: Arrondissement::class)]
@@ -163,5 +168,15 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         $this->arrondissementsCouverts->removeElement($arrondissementsCouvert);
 
         return $this;
+    }
+
+    #[Groups(['read:Item:Me'])]
+    public function getArrondissementCouvert(): Arrondissement|null
+    {
+        if ($this->arrondissementsCouverts->count() < 1) {
+            return null;
+        }
+
+        return $this->arrondissementsCouverts->get(0);
     }
 }
