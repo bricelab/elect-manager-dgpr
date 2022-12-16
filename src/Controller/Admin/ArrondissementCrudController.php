@@ -6,6 +6,7 @@ use App\Entity\Arrondissement;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -30,6 +31,7 @@ class ArrondissementCrudController extends AbstractCrudController
         yield IdField::new('id', 'Identifiant')->onlyOnDetail();
         yield AssociationField::new('commune', 'Commune');
         yield TextField::new('nom', 'Nom');
+        yield BooleanField::new('rapportOuvertureRempli', 'Rapport rempli ?');
         yield IntegerField::new('nbInscrits', 'Nombre d\'inscrits');
     }
 }

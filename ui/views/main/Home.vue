@@ -1,7 +1,10 @@
 <template>
   <v-container>
     <v-row dense>
-      <h1 class="text-h2 text-purple mt-5 mb-5">
+      <h3 class="text-subtitle-2 text-purple">
+        Arrondissement de <span class="fw-bold">{{ userStore.arrondissementName }}</span>
+      </h3>
+      <h1 class="text-h2 text-purple mt-5 mb-2">
         Bienvenue {{ userStore.fullName }}
       </h1>
 
@@ -9,7 +12,23 @@
         <v-alert :type="alertStore.type" :title="alertStore.title" closable>{{ alertStore.message }}</v-alert>
       </v-col>
 
-      <v-col cols="12" class="mt-5 mb-3" v-if="!userStore.rapportOuvertureRempli">
+      <v-col cols="12" class="mt-3 mb-3">
+        <v-card theme="light">
+          <v-card-text>
+            <div>
+              <b>Total postes de vote :</b> <span>{{ userStore.arrondissementPostesTotal }}</span>
+            </div>
+            <div>
+              <b>Postes de vote remontés :</b> <span>{{ userStore.arrondissementPostesRemontes }}</span>
+            </div>
+            <div>
+              <b>Postes de vote restants :</b> <span>{{ userStore.arrondissementPostesRestant }}</span>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+
+      <v-col cols="12" class="mb-3" v-if="!userStore.rapportOuvertureRempli">
         <v-card theme="light">
           <v-card-title class="text-h5">
             Rapport d'ouverture

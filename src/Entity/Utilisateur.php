@@ -44,13 +44,9 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(['read:Item:Me'])]
     private ?string $prenoms = null;
 
-    #[ORM\ManyToMany(targetEntity: Arrondissement::class)]
-    private Collection $arrondissementsCouverts;
-
-    public function __construct()
-    {
-        $this->arrondissementsCouverts = new ArrayCollection();
-    }
+    #[ORM\ManyToOne]
+    #[Groups(['read:Item:Me'])]
+    private ?Arrondissement $arrondissementCouvert;
 
     public function getId(): ?int
     {
@@ -146,37 +142,15 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Arrondissement>
-     */
-    public function getArrondissementsCouverts(): Collection
+    public function getArrondissementCouvert(): ?Arrondissement
     {
-        return $this->arrondissementsCouverts;
+        return $this->arrondissementCouvert;
     }
 
-    public function addArrondissementsCouvert(Arrondissement $arrondissementsCouvert): self
+    public function setArrondissementCouvert(?Arrondissement $arrondissementCouvert): self
     {
-        if (!$this->arrondissementsCouverts->contains($arrondissementsCouvert)) {
-            $this->arrondissementsCouverts->add($arrondissementsCouvert);
-        }
+        $this->arrondissementCouvert = $arrondissementCouvert;
 
         return $this;
-    }
-
-    public function removeArrondissementsCouvert(Arrondissement $arrondissementsCouvert): self
-    {
-        $this->arrondissementsCouverts->removeElement($arrondissementsCouvert);
-
-        return $this;
-    }
-
-    #[Groups(['read:Item:Me'])]
-    public function getArrondissementCouvert(): Arrondissement|null
-    {
-        if ($this->arrondissementsCouverts->count() < 1) {
-            return null;
-        }
-
-        return $this->arrondissementsCouverts->get(0);
     }
 }

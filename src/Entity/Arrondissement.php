@@ -39,6 +39,10 @@ class Arrondissement
     #[ORM\JoinColumn(nullable: false)]
     private ?Commune $commune = null;
 
+    #[ORM\Column(nullable: false)]
+    #[Groups(['read:Item:Me'])]
+    private bool $rapportOuvertureRempli = false;
+
     public function __toString(): string
     {
         return $this->nom;
@@ -91,9 +95,15 @@ class Arrondissement
         return '/api/communes/' . $this->commune->getId();
     }
 
-    #[Groups(['read:Item:Me'])]
-    public function getRapportOuvertureRempli():bool
+    public function getRapportOuvertureRempli(): bool
     {
-        return false;
+        return $this->rapportOuvertureRempli;
+    }
+
+    public function setRapportOuvertureRempli(bool $rapportOuvertureRempli): self
+    {
+        $this->rapportOuvertureRempli = $rapportOuvertureRempli;
+
+        return $this;
     }
 }

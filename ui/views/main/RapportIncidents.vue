@@ -8,7 +8,7 @@
       <v-row>
         <v-col cols="12">
           <div class="text-subtitle-2 text-purple">
-            Arrondissement de Togba
+            Arrondissement de <span class="fw-bold">{{ userStore.arrondissementName }}</span>
           </div>
           <div class="text-h5 text-purple">
             Signalement d'incidents
@@ -18,7 +18,7 @@
           <v-text-field
               label="Heure"
               type="time"
-              :model-value="hour"
+              v-model="incident.heure"
               clearable
               clear-icon="mdi-close-circle"
               variant="underlined"
@@ -28,7 +28,7 @@
               counter
               label="Incidents observés"
               :rules="rules"
-              :model-value="incidents"
+              v-model="incident.details"
               clearable
               clear-icon="mdi-close-circle"
               variant="underlined"
@@ -62,14 +62,20 @@
 import {ref} from 'vue'
 import {useRouter} from 'vue-router'
 import {useAlertStore} from '@/stores/alert/alert-store'
+import {useUserStore} from '@/stores/user/user-store'
+import {signalerIncident} from '@/services/incident/incident_services'
 
 const router = useRouter()
 const alertStore = useAlertStore()
+const userStore = useUserStore()
 
 alertStore.reset()
 
-const hour = ref('')
-const incidents = ref('')
+const incident = ref({
+  id: 0,
+  heure: '',
+  details: '',
+})
 
 const form = ref()
 const loading = ref(false)
@@ -79,11 +85,33 @@ const rules = [v => v.length >= 3 || 'Minimum 03 caractères']
 const back = () => {
   router.back()
 }
+const resetData = () => {
+  incident.value = {
+    id: 0,
+    heure: '',
+    details: '',
+  }
+}
 const validate = async () => {
   valid.value = await form.value.validate()
 
   if (valid.value) {
-    alert('Ok')
+    try {
+      console.log(incident.value)
+      incident.value = await signalerIncident(incident.value)
+      await userStore.initialize()
+      alertStore.type = 'success'
+      alertStore.title = 'Succès'
+      alertStore.message = 'Informations soumises avec succès !'
+    } catch (e) {
+      alertStore.type = 'error'
+      alertStore.title = 'Erreur'
+      alertStore.message = 'Une erreur s\'est produite. Veuillez réessayer plus tard svp !'
+    }
+    alertStore.show = true
+    resetData()
+    loading.value = false
+    back()
   }
 }
 </script>

@@ -12,25 +12,25 @@ export const routes = [
             {
                 name: 'Home',
                 path: '/accueil',
-                component: () => import('@/pages/Home.vue'),
+                component: () => import('@/views/main/Home.vue'),
             },
             {
                 name: 'RapportOuverture',
                 // path: `/${SIDEBAR_MENU_ITEMS.CALENDAR}`,
                 path: `/rapport-d-ouverture`,
-                component: () => import('@/pages/RapportOuverture.vue'),
+                component: () => import('@/views/main/RapportOuverture.vue'),
             },
             {
                 name: 'RapportIncidents',
                 // path: `/${SIDEBAR_MENU_ITEMS.CALENDAR}`,
                 path: `/rapport-d-incident`,
-                component: () => import('@/pages/RapportIncidents.vue'),
+                component: () => import('@/views/main/RapportIncidents.vue'),
             },
             {
                 name: 'RemonteesResultats',
                 // path: `/${SIDEBAR_MENU_ITEMS.CALENDAR}`,
                 path: `/remontees-resultats`,
-                component: () => import('@/pages/RemonteesResultats.vue'),
+                component: () => import('@/views/main/RemonteesResultats.vue'),
             },
             // {
             //     name: 'Login',

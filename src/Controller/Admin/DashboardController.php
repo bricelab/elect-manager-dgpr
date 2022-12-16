@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Arrondissement;
+use App\Entity\Candidat;
 use App\Entity\Commune;
 use App\Entity\Departement;
 use App\Entity\RapportOuverture;
@@ -62,7 +63,8 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Rapports d\'ouverture', 'fas fa-report', RapportOuverture::class);
+        yield MenuItem::linkToCrud('Rapports d\'ouverture', 'fas fa-list', RapportOuverture::class);
+        yield MenuItem::linkToCrud('Candidat', 'fas fa-list', Candidat::class);
         yield MenuItem::linkToCrud('Départements', 'fas fa-list', Departement::class);
         yield MenuItem::linkToCrud('Communes', 'fas fa-list', Commune::class);
         yield MenuItem::linkToCrud('Arrondissements', 'fas fa-list', Arrondissement::class);

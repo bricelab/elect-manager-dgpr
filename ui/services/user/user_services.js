@@ -24,17 +24,19 @@ import {axios} from '@/modules/axios/axios'
  */
 export function getUserInfos() {
     return axios.get('/api/me').then((response) => {
-        // console.log(response.data)
+        console.log(response.data)
         return {
-            id: response.data.id,
-            nom: response.data.nom,
-            prenoms: response.data.prenoms,
-            email: response.data.email,
+            id: response.data.user.id,
+            nom: response.data.user.nom,
+            prenoms: response.data.user.prenoms,
+            email: response.data.user.email,
             arrondissement: {
-                id: response.data.arrondissementCouvert.id,
-                nom: response.data.arrondissementCouvert.nom,
-                commune: response.data.arrondissementCouvert.communeUri,
-                rapportOuvertureRempli: response.data.arrondissementCouvert.rapportOuvertureRempli,
+                id: response.data.user.arrondissementCouvert.id,
+                nom: response.data.user.arrondissementCouvert.nom,
+                commune: response.data.user.arrondissementCouvert.communeUri,
+                rapportOuvertureRempli: response.data.user.arrondissementCouvert.rapportOuvertureRempli,
+                postesTotal: response.data.postesTotal,
+                postesRemontes: response.data.postesRemontes,
             },
         }
     })

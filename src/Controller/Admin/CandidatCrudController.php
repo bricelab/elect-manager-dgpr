@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Utilisateur;
+use App\Entity\Candidat;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -10,21 +10,22 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class UtilisateurCrudController extends AbstractCrudController
+class CandidatCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Utilisateur::class;
+        return Candidat::class;
     }
 
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setEntityLabelInSingular('un utilisateur')
-            ->setEntityLabelInPlural('Liste des utilisateurs')
+            ->setEntityLabelInSingular('un candidat')
+            ->setEntityLabelInPlural('Liste des candidats')
             ;
     }
 
@@ -38,16 +39,18 @@ class UtilisateurCrudController extends AbstractCrudController
 
             ->add(Crud::PAGE_DETAIL, Action::EDIT)
             ->add(Crud::PAGE_DETAIL, Action::DELETE)
-        ;
+            ;
     }
 
     public function configureFields(string $pageName): iterable
     {
         yield IdField::new('id', 'Identifiant')->onlyOnDetail();
-        yield AssociationField::new('arrondissementCouvert', 'Arrondissement couvert');
+        yield ImageField::new('logo', 'Logo')
+            ->setBasePath('uploads/candidats/logos/')
+            ->setUploadDir('public/uploads/candidats/logos/')
+        ;
+        yield TextField::new('sigle', 'Sigle');
         yield TextField::new('nom', 'Nom');
-        yield TextField::new('prenoms', 'Prénoms');
-        yield EmailField::new('email', 'Adresse mail');
-        yield TextField::new('password', 'Mot de passe');
+        yield IntegerField::new('position', 'Position sur le bulletin');
     }
 }

@@ -21,10 +21,21 @@ export const useUserStore = defineStore('user-store', {
         },
         rapportOuvertureRempli() {
             return this.arrondissement.rapportOuvertureRempli
-        }
+        },
+        arrondissementPostesTotal() {
+            return this.arrondissement.postesTotal
+        },
+        arrondissementPostesRemontes() {
+            return this.arrondissement.postesRemontes
+        },
+        arrondissementPostesRestant() {
+            return this.arrondissement.postesTotal - this.arrondissement.postesRemontes
+        },
     },
     actions: {
         async initialize() {
+            this.isInitialized = false
+
             const data = await getUserInfos()
 
             this.id = data.id

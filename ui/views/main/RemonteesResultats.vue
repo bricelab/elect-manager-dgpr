@@ -59,7 +59,7 @@
           ></v-text-field>
 
           <v-text-field
-              label="Union progressiste pour le renouveau (UPR)"
+              label="MOELE-BÉNIN"
               type="number"
               :model-value="hour"
               clearable
@@ -68,7 +68,7 @@
           ></v-text-field>
 
           <v-text-field
-              label="Bloc républicain (BR)"
+              label="FCBE"
               type="number"
               :model-value="hour"
               clearable
@@ -77,7 +77,7 @@
           ></v-text-field>
 
           <v-text-field
-              label="Forces Cauris pour un Bénin émergent (FCBE)"
+              label="Les Démocrates"
               type="number"
               :model-value="hour"
               clearable
@@ -86,7 +86,7 @@
           ></v-text-field>
 
           <v-text-field
-              label="Union pour le développement d'un Bénin nouveau (UDBN)"
+              label="UPR"
               type="number"
               :model-value="hour"
               clearable
@@ -95,7 +95,7 @@
           ></v-text-field>
 
           <v-text-field
-              label="Les Démocrates (LD)"
+              label="UDBN"
               type="number"
               :model-value="hour"
               clearable
@@ -104,7 +104,7 @@
           ></v-text-field>
 
           <v-text-field
-              label="Mouvement populaire de libération (MPL)"
+              label="MPL"
               type="number"
               :model-value="hour"
               clearable
@@ -113,7 +113,7 @@
           ></v-text-field>
 
           <v-text-field
-              label="Mouvement des élites engagées pour l’émancipation du Bénin (MOELE-BÉNIN)"
+              label="Bloc Républicain"
               type="number"
               :model-value="hour"
               clearable

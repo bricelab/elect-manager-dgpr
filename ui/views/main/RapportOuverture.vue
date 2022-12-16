@@ -87,7 +87,7 @@ alertStore.reset()
 
 const rapportOuverture = ref({
   id: 0,
-  arrondissement: '/api/arrondissements/156',
+  arrondissement: `/api/arrondissements/${userStore.arrondissement.id}`,
   ouverture: '',
   incidents: '',
   difficultes: '',
@@ -104,7 +104,7 @@ const back = () => {
 const resetData = () => {
   rapportOuverture.value = {
     id: 0,
-    arrondissement: '/api/arrondissements/156',
+    arrondissement: `/api/arrondissements/${userStore.arrondissement.id}`,
     ouverture: '',
     incidents: '',
     difficultes: '',
@@ -117,6 +117,7 @@ const validate = async () => {
   if (valid.value) {
     try {
       rapportOuverture.value = await envoyerRapportOuverture(rapportOuverture.value)
+      await userStore.initialize()
       alertStore.type = 'success'
       alertStore.title = 'Succès'
       alertStore.message = 'Informations soumises avec succès !'
