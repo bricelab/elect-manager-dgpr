@@ -3,11 +3,16 @@
 namespace App\Entity;
 
 use App\Repository\VillageQuartierRepository;
+use Bricelab\Doctrine\TimestampSetter;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: VillageQuartierRepository::class)]
+#[ORM\UniqueConstraint(fields: ['nom', 'arrondissement'])]
+#[ORM\HasLifecycleCallbacks]
 class VillageQuartier
 {
+    use TimestampSetter;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

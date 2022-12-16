@@ -15,6 +15,19 @@
       <v-col cols="12" class="mt-3 mb-3">
         <v-card theme="light">
           <v-card-text>
+            <div v-if="userStore.rapportOuvertureRempli">
+              <b>Rapport d'ouverture :</b>
+              <span>
+                <v-badge
+                    color="success"
+                    content="envoyé"
+                    inline
+                ></v-badge>
+              </span>
+            </div>
+            <div>
+              <b>Incidents déclarés :</b> <span>{{ userStore.arrondissementIncidentsSignales }}</span>
+            </div>
             <div>
               <b>Total postes de vote :</b> <span>{{ userStore.arrondissementPostesTotal }}</span>
             </div>
@@ -103,8 +116,8 @@
 
 <script setup>
 import {useRouter} from 'vue-router'
-import {useAlertStore} from '@/stores/alert/alert-store'
-import {useUserStore} from '@/stores/user/user-store'
+import {useAlertStore} from '@/stores/alert-store'
+import {useUserStore} from '@/stores/user-store'
 
 const router = useRouter()
 const alertStore = useAlertStore()

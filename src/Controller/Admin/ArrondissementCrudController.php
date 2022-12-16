@@ -32,6 +32,5 @@ class ArrondissementCrudController extends AbstractCrudController
         yield AssociationField::new('commune', 'Commune');
         yield TextField::new('nom', 'Nom');
         yield BooleanField::new('rapportOuvertureRempli', 'Rapport rempli ?');
-        yield IntegerField::new('nbInscrits', 'Nombre d\'inscrits');
     }
 }

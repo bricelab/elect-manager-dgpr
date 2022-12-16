@@ -4,25 +4,32 @@ namespace App\Entity;
 
 use App\Repository\CandidatRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CandidatRepository::class)]
+#[ORM\UniqueConstraint(columns: ['nom', 'sigle'])]
 class Candidat
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['read:Item:Me'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['read:Item:Me'])]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['read:Item:Me'])]
     private ?string $sigle = null;
 
     #[ORM\Column]
+    #[Groups(['read:Item:Me'])]
     private ?int $position = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['read:Item:Me'])]
     private ?string $logo = null;
 
     public function getId(): ?int

@@ -8,7 +8,7 @@
       <v-row>
         <v-col cols="12">
           <div class="text-subtitle-2 text-purple">
-            Arrondissement de Togba
+            Arrondissement de <span class="fw-bold">{{ userStore.arrondissementName }}</span>
           </div>
           <div class="text-h5 text-purple">
             Remontée de résultats du scrutin
@@ -19,22 +19,31 @@
               label="Centre de vote"
               clearable
               clear-icon="mdi-close-circle"
-              :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']"
+              :items="centresVote"
+              type="object"
+              item-title="nom"
+              item-value="id"
               variant="underlined"
+              v-model="centreVote"
+              @update:modelValue="updatePosteVoteValues"
           ></v-select>
 
           <v-select
               label="Poste de vote"
               clearable
               clear-icon="mdi-close-circle"
-              :items="['California2', 'Colorado2', 'Florida2', 'Georgia2', 'Texas2', 'Wyoming2']"
+              :items="postesVote"
+              type="object"
+              item-title="nom"
+              item-value="id"
               variant="underlined"
+              v-model="posteVote"
           ></v-select>
 
           <v-text-field
               label="Nombre d'inscrits"
               type="number"
-              :model-value="hour"
+              v-model="inscrits"
               clearable
               clear-icon="mdi-close-circle"
               variant="underlined"
@@ -43,7 +52,7 @@
           <v-text-field
               label="Nombre de votants"
               type="number"
-              :model-value="hour"
+              v-model="votants"
               clearable
               clear-icon="mdi-close-circle"
               variant="underlined"
@@ -52,74 +61,38 @@
           <v-text-field
               label="Bulletins nuls"
               type="number"
-              :model-value="hour"
+              v-model="nuls"
               clearable
               clear-icon="mdi-close-circle"
               variant="underlined"
           ></v-text-field>
 
-          <v-text-field
-              label="MOELE-BÉNIN"
-              type="number"
-              :model-value="hour"
-              clearable
-              clear-icon="mdi-close-circle"
-              variant="underlined"
-          ></v-text-field>
+          <h1 class="text-h5 text-purple mt-3 mb-3">Suffrages obtenus</h1>
 
-          <v-text-field
-              label="FCBE"
-              type="number"
-              :model-value="hour"
-              clearable
-              clear-icon="mdi-close-circle"
-              variant="underlined"
-          ></v-text-field>
-
-          <v-text-field
-              label="Les Démocrates"
-              type="number"
-              :model-value="hour"
-              clearable
-              clear-icon="mdi-close-circle"
-              variant="underlined"
-          ></v-text-field>
-
-          <v-text-field
-              label="UPR"
-              type="number"
-              :model-value="hour"
-              clearable
-              clear-icon="mdi-close-circle"
-              variant="underlined"
-          ></v-text-field>
-
-          <v-text-field
-              label="UDBN"
-              type="number"
-              :model-value="hour"
-              clearable
-              clear-icon="mdi-close-circle"
-              variant="underlined"
-          ></v-text-field>
-
-          <v-text-field
-              label="MPL"
-              type="number"
-              :model-value="hour"
-              clearable
-              clear-icon="mdi-close-circle"
-              variant="underlined"
-          ></v-text-field>
-
-          <v-text-field
-              label="Bloc Républicain"
-              type="number"
-              :model-value="hour"
-              clearable
-              clear-icon="mdi-close-circle"
-              variant="underlined"
-          ></v-text-field>
+          <v-row
+              v-for="c in userStore.sortedCandidats"
+              :key="c.id"
+              class="mt-5"
+          >
+            <v-col cols="4">
+              <v-img
+                  :src="`/uploads/candidats/logos/${c.logo}`"
+                  aspect-ratio="1"
+                  cover
+                  style="height: 100px; width: 100px;"
+              ></v-img>
+            </v-col>
+            <v-col cols="8">
+              <v-text-field
+                  :label="c.sigle"
+                  type="number"
+                  v-model="suffrages[c.id]"
+                  clearable
+                  clear-icon="mdi-close-circle"
+                  variant="underlined"
+              ></v-text-field>
+            </v-col>
+          </v-row>
         </v-col>
         <v-col cols="12" class="text-end">
           <v-btn
@@ -148,20 +121,36 @@
 <script setup>
 import {ref} from 'vue'
 import {useRouter} from 'vue-router'
-import {useAlertStore} from '@/stores/alert/alert-store'
+import {useAlertStore} from '@/stores/alert-store'
+import {useUserStore} from '@/stores/user-store'
+import {remonterResultats} from "@/services/scrutin-services";
 
 const router = useRouter()
 const alertStore = useAlertStore()
+const userStore = useUserStore()
 
 alertStore.reset()
 
-const hour = ref('')
+const centresVote = ref([])
+const postesVote = ref([])
+centresVote.value = userStore.centresVote
+
+const centreVote = ref('')
+const posteVote = ref('')
+const inscrits = ref('')
+const votants = ref('')
+const nuls = ref('')
+
+const suffrages = ref([])
 
 const form = ref()
 const loading = ref(false)
 const valid = ref(false)
 const rules = [v => v.length >= 3 || 'Minimum 03 caractères']
 
+const updatePosteVoteValues = () => {
+  postesVote.value = userStore.postesVote.filter(pv => !pv.estRemonte && pv.centreVote.id === centreVote.value)
+}
 const back = () => {
   router.back()
 }
@@ -169,7 +158,27 @@ const validate = async () => {
   valid.value = await form.value.validate()
 
   if (valid.value) {
-    alert('Ok')
+    try {
+      await remonterResultats({
+        posteVote: posteVote.value,
+        inscrits: inscrits.value,
+        votants: votants.value,
+        nuls: nuls.value,
+        suffrages: suffrages.value,
+      })
+      await userStore.initialize()
+      alertStore.type = 'success'
+      alertStore.title = 'Succès'
+      alertStore.message = 'Informations soumises avec succès !'
+    } catch (e) {
+      console.log()
+      alertStore.type = 'error'
+      alertStore.title = 'Erreur'
+      alertStore.message = `${e.response.data.detail}. Veuillez vérifier svp !`
+    }
+    alertStore.show = true
+    loading.value = false
+    back()
   }
 }
 </script>

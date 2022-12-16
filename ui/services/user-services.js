@@ -24,7 +24,6 @@ import {axios} from '@/modules/axios/axios'
  */
 export function getUserInfos() {
     return axios.get('/api/me').then((response) => {
-        console.log(response.data)
         return {
             id: response.data.user.id,
             nom: response.data.user.nom,
@@ -35,9 +34,13 @@ export function getUserInfos() {
                 nom: response.data.user.arrondissementCouvert.nom,
                 commune: response.data.user.arrondissementCouvert.communeUri,
                 rapportOuvertureRempli: response.data.user.arrondissementCouvert.rapportOuvertureRempli,
-                postesTotal: response.data.postesTotal,
-                postesRemontes: response.data.postesRemontes,
+                // postesTotal: response.data.postesTotal,
+                // postesRemontes: response.data.postesRemontes,
+                incidentsSignales: response.data.incidentsSignales,
+                centresVote: response.data.centresVote,
+                postesVote: response.data.postesVote,
             },
+            candidats: response.data.candidats,
         }
     })
 }

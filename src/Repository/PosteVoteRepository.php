@@ -40,17 +40,35 @@ class PosteVoteRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @param Arrondissement $arrondissement
+     * @return PosteVote[]
+     */
+    public function findByArrondissement(Arrondissement $arrondissement): array
+    {
+        return $this->createQueryBuilder('pv')
+            ->select('pv')
+            ->join('pv.centreVote', 'cv')
+            ->join('cv.villageQuartier', 'vq')
+            ->andWhere('vq.arrondissement = :arrondissement')
+            ->setParameter('arrondissement', $arrondissement)
+            ->orderBy('pv.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     public function countByArrondissement(Arrondissement $arrondissement): int
     {
         return $this->createQueryBuilder('pv')
             ->select('count(pv) as nb_pv')
             ->join('pv.centreVote', 'cv')
             ->join('cv.villageQuartier', 'vq')
-            ->andWhere('vq.arrondissement = :val')
-            ->setParameter('val', $arrondissement)
+            ->andWhere('vq.arrondissement = :arrondissement')
+            ->setParameter('arrondissement', $arrondissement)
             ->orderBy('pv.id', 'ASC')
             ->getQuery()
-            ->getResult()[0]['nb_pv']
+            ->getScalarResult()[0]['nb_pv']
         ;
     }
 
@@ -66,7 +84,7 @@ class PosteVoteRepository extends ServiceEntityRepository
             ->setParameter('estRemonte', true)
             ->orderBy('pv.id', 'ASC')
             ->getQuery()
-            ->getResult()[0]['nb_pv']
+            ->getScalarResult()[0]['nb_pv']
         ;
     }
 

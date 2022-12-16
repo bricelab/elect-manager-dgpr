@@ -45,6 +45,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $prenoms = null;
 
     #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
     #[Groups(['read:Item:Me'])]
     private ?Arrondissement $arrondissementCouvert;
 

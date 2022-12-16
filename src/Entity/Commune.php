@@ -10,6 +10,7 @@ use Bricelab\Doctrine\TimestampSetter;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CommuneRepository::class)]
+#[ORM\UniqueConstraint(fields: ['nom', 'departement'])]
 #[ORM\HasLifecycleCallbacks]
 #[ApiResource(
     operations: [
@@ -28,9 +29,6 @@ class Commune
 
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?int $nbInscrits = null;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
@@ -54,18 +52,6 @@ class Commune
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getNbInscrits(): ?int
-    {
-        return $this->nbInscrits;
-    }
-
-    public function setNbInscrits(?int $nbInscrits): self
-    {
-        $this->nbInscrits = $nbInscrits;
 
         return $this;
     }

@@ -3,11 +3,16 @@
 namespace App\Entity;
 
 use App\Repository\SuffragesObtenusRepository;
+use Bricelab\Doctrine\TimestampSetter;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SuffragesObtenusRepository::class)]
+#[ORM\UniqueConstraint(fields: ['posteVote', 'candidat'])]
+#[ORM\HasLifecycleCallbacks]
 class SuffragesObtenus
 {
+    use TimestampSetter;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

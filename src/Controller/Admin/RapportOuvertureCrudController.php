@@ -30,7 +30,7 @@ class RapportOuvertureCrudController extends AbstractCrudController
         ;
     }
 
-    public function configureActions(Actions $actions): Actions
+    /*public function configureActions(Actions $actions): Actions
     {
         return $actions
 //            ->addBatchAction(Action::BATCH_DELETE)
@@ -41,7 +41,7 @@ class RapportOuvertureCrudController extends AbstractCrudController
             ->add(Crud::PAGE_DETAIL, Action::EDIT)
 //            ->add(Crud::PAGE_DETAIL, Action::DELETE)
             ;
-    }
+    }*/
 
     public function configureFields(string $pageName): iterable
     {

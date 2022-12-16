@@ -39,7 +39,7 @@ class DashboardController extends AbstractDashboardController
         ;
     }
 
-    public function configureActions(): Actions
+   /* public function configureActions(): Actions
     {
         return Actions::new()
 //            ->addBatchAction(Action::BATCH_DELETE)
@@ -58,7 +58,7 @@ class DashboardController extends AbstractDashboardController
             ->add(Crud::PAGE_NEW, Action::SAVE_AND_RETURN)
             ->add(Crud::PAGE_NEW, Action::SAVE_AND_ADD_ANOTHER)
         ;
-    }
+    }*/
 
     public function configureMenuItems(): iterable
     {

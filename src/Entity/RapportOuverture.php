@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: RapportOuvertureRepository::class)]
+#[ORM\UniqueConstraint(fields: ['arrondissement'])]
 #[ORM\HasLifecycleCallbacks]
 #[ApiResource(
     uriTemplate: '/rapport-ouverture',

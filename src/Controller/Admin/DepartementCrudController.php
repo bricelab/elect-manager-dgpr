@@ -30,7 +30,6 @@ class DepartementCrudController extends AbstractCrudController
     {
         yield IdField::new('id', 'Identifiant')->onlyOnDetail();
         yield TextField::new('nom', 'Nom');
-        yield IntegerField::new('nbInscrits', 'Nombre d\'inscrits');
     }
 
 }

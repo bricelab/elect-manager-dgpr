@@ -30,6 +30,5 @@ class CommuneCrudController extends AbstractCrudController
         yield IdField::new('id', 'Identifiant')->onlyOnDetail();
         yield AssociationField::new('departement', 'Département');
         yield TextField::new('nom', 'Nom');
-        yield IntegerField::new('nbInscrits', 'Nombre d\'inscrits');
     }
 }

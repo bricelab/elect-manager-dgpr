@@ -17,7 +17,7 @@
         <v-col cols="12">
           <v-textarea
               counter
-              label="Ouverture"
+              label="Point sur l'ouverture du scrutin"
               :rules="rules"
               v-model="rapportOuverture.ouverture"
               clearable
@@ -75,9 +75,9 @@
 <script setup>
 import {ref} from 'vue'
 import {useRouter} from 'vue-router'
-import {envoyerRapportOuverture} from '@/services/rapport-ouverture/rapport-ouverture_services'
-import {useAlertStore} from '@/stores/alert/alert-store'
-import {useUserStore} from '@/stores/user/user-store'
+import {envoyerRapportOuverture} from '@/services/scrutin-services'
+import {useAlertStore} from '@/stores/alert-store'
+import {useUserStore} from '@/stores/user-store'
 
 const router = useRouter()
 const alertStore = useAlertStore()

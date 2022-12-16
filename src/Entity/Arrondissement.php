@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ArrondissementRepository::class)]
+#[ORM\UniqueConstraint(fields: ['nom', 'commune'])]
 #[ORM\HasLifecycleCallbacks]
 #[ApiResource(
     operations: [
@@ -32,16 +33,13 @@ class Arrondissement
     #[Groups(['read:Item:Me'])]
     private ?string $nom = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $nbInscrits = null;
+    #[ORM\Column(nullable: false)]
+    #[Groups(['read:Item:Me'])]
+    private bool $rapportOuvertureRempli = false;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     private ?Commune $commune = null;
-
-    #[ORM\Column(nullable: false)]
-    #[Groups(['read:Item:Me'])]
-    private bool $rapportOuvertureRempli = false;
 
     public function __toString(): string
     {
@@ -61,18 +59,6 @@ class Arrondissement
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getNbInscrits(): ?int
-    {
-        return $this->nbInscrits;
-    }
-
-    public function setNbInscrits(?int $nbInscrits): self
-    {
-        $this->nbInscrits = $nbInscrits;
 
         return $this;
     }

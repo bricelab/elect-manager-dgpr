@@ -50,7 +50,7 @@ class CentreVoteRepository extends ServiceEntityRepository
             ->join('cv.villageQuartier', 'vq')
             ->andWhere('vq.arrondissement = :arrondissement')
             ->setParameter('arrondissement', $arrondissement)
-            ->orderBy('c.id', 'ASC')
+            ->orderBy('cv.id', 'ASC')
             ->getQuery()
             ->getResult()
         ;

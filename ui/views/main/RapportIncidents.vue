@@ -61,9 +61,9 @@
 <script setup>
 import {ref} from 'vue'
 import {useRouter} from 'vue-router'
-import {useAlertStore} from '@/stores/alert/alert-store'
-import {useUserStore} from '@/stores/user/user-store'
-import {signalerIncident} from '@/services/incident/incident_services'
+import {useAlertStore} from '@/stores/alert-store'
+import {useUserStore} from '@/stores/user-store'
+import {signalerIncident} from '@/services/scrutin-services'
 
 const router = useRouter()
 const alertStore = useAlertStore()
