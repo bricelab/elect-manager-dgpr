@@ -73,7 +73,7 @@
 </template>
 
 <script setup>
-import {ref} from 'vue'
+import {onMounted, ref} from 'vue'
 import {useRouter} from 'vue-router'
 import {envoyerRapportOuverture} from '@/services/scrutin-services'
 import {useAlertStore} from '@/stores/alert-store'
@@ -84,6 +84,12 @@ const alertStore = useAlertStore()
 const userStore = useUserStore()
 
 alertStore.reset()
+
+onMounted(() => {
+  if (userStore.rapportOuvertureRempli) {
+    back()
+  }
+})
 
 const rapportOuverture = ref({
   id: 0,

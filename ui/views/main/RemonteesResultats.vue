@@ -119,7 +119,7 @@
 </template>
 
 <script setup>
-import {ref} from 'vue'
+import {onMounted, ref} from 'vue'
 import {useRouter} from 'vue-router'
 import {useAlertStore} from '@/stores/alert-store'
 import {useUserStore} from '@/stores/user-store'
@@ -131,9 +131,19 @@ const userStore = useUserStore()
 
 alertStore.reset()
 
+onMounted(() => {
+  if (userStore.arrondissementPostesRestant < 1) {
+    back()
+  }
+})
+
 const centresVote = ref([])
 const postesVote = ref([])
-centresVote.value = userStore.centresVote
+centresVote.value = userStore.centresVote.filter((cv) => {
+  return  userStore.postesVote.filter((pv) => {
+    return pv.centreVote.id === cv.id && !pv.estRemonte
+  }).length > 0
+})
 
 const centreVote = ref('')
 const posteVote = ref('')

@@ -24,16 +24,28 @@ export const useUserStore = defineStore('user-store', {
             return this.arrondissement.rapportOuvertureRempli
         },
         arrondissementPostesTotal() {
-            // return this.arrondissement.postesTotal
             return this.arrondissement.postesVote.length
         },
+        arrondissementCentresTotal() {
+            return this.arrondissement.centresVote.length
+        },
         arrondissementPostesRemontes() {
-            // return this.arrondissement.postesRemontes
             return this.arrondissement.postesVote.filter((pv) => pv.estRemonte).length
         },
         arrondissementPostesRestant() {
-            // return this.arrondissement.postesTotal - this.arrondissement.postesRemontes
             return this.arrondissementPostesTotal - this.arrondissementPostesRemontes
+        },
+        arrondissementCentresRestant() {
+            const centresVoteRestant = []
+            this.arrondissement.centresVote.forEach((cv) => {
+                const nbPvRestant = this.arrondissement.postesVote.filter((pv) => {
+                    return pv.centreVote.id === cv.id && !pv.estRemonte
+                }).length
+                if (nbPvRestant > 0) {
+                    centresVoteRestant.push(cv)
+                }
+            })
+            return centresVoteRestant.length
         },
         arrondissementIncidentsSignales() {
             return this.arrondissement.incidentsSignales
