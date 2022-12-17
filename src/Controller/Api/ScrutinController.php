@@ -27,7 +27,7 @@ class ScrutinController extends AbstractController
         }
 
         $payload = json_decode($request->getContent(), true);
-        dump($payload);
+//        dump($payload);
 
         $posteVote = $posteVoteRepository->find($payload['posteVote']);
         if (!$posteVote) {
