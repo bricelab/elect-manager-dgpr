@@ -5,6 +5,8 @@ namespace App\Controller\Api;
 use App\Entity\DonneesPosteVote;
 use App\Entity\SuffragesObtenus;
 use App\Entity\Utilisateur;
+use App\Exception\BadInputException;
+use App\Exception\PosteVoteNotFoundException;
 use App\Repository\CandidatRepository;
 use App\Repository\PosteVoteRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -31,11 +33,11 @@ class ScrutinController extends AbstractController
 
         $posteVote = $posteVoteRepository->find($payload['posteVote']);
         if (!$posteVote) {
-            throw $this->createNotFoundException('Poste de vote non trouvé');
+            throw new PosteVoteNotFoundException('Poste de vote non trouvé');
         }
 
         if ($posteVote->isEstRemonte()) {
-            throw new BadRequestException('Les résultats du poste de vote ont déjà été remontés');
+            throw new BadInputException('Les résultats du poste de vote ont déjà été remontés');
         }
 
         $inscrits = intval($payload['inscrits']);
@@ -55,8 +57,8 @@ class ScrutinController extends AbstractController
             $total += $suffrages[$candidat->getId()];
         }
 
-        if ($votants !== $total) {
-            throw new BadRequestException('Les résultats sont erronés');
+        if ($inscrits < $votants || $votants !== $total) {
+            throw new BadInputException('Les résultats sont erronés');
         }
 
         $donneesPosteVote = new DonneesPosteVote();

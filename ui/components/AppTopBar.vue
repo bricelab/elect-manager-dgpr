@@ -35,9 +35,9 @@
 </template>
 
 <script setup>
-import {useUserStore} from '@/stores/user-store'
+// import {useUserStore} from '@/stores/user-store'
 
-const userStore = useUserStore()
+// const userStore = useUserStore()
 
 defineProps({
   isConnectedUserPage: {
