@@ -63,7 +63,7 @@
               <b>Total postes de vote :</b>
               <span>
                 <v-badge
-                    color="purple"
+                    color="info"
                     :content="userStore.arrondissementPostesTotal"
                     inline
                 ></v-badge>
