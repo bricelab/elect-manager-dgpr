@@ -1,6 +1,6 @@
 <?php
 
-namespace App\EventDispatcher\EventSubscriber;
+namespace App\EventSubscriber;
 
 use ApiPlatform\Symfony\EventListener\EventPriorities;
 use App\Entity\IncidentSignale;

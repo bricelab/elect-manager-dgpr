@@ -1,11 +1,11 @@
 <?php
 
-namespace App\EventDispatcher\EventSubscriber;
+namespace App\EventSubscriber;
 
 use ApiPlatform\Symfony\EventListener\EventPriorities;
 use App\Entity\RapportOuverture;
 use App\Entity\Utilisateur;
-use App\EventDispatcher\Event\RapportOuvertureSoumisEtValideEvent;
+use App\Event\RapportOuvertureSoumisEtValideEvent;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

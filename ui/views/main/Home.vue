@@ -1,12 +1,16 @@
 <template>
   <v-container>
     <v-row dense>
-      <h3 class="text-subtitle-2 text-purple">
-        Arrondissement de <span class="fw-bold">{{ userStore.arrondissementName }}</span>
-      </h3>
-      <h1 class="text-h3 text-purple mt-5 mb-2">
-        Bienvenue {{ userStore.fullName }}
-      </h1>
+      <v-col cols="12">
+        <h3 class="text-subtitle-2 text-purple">
+          Arrondissement de <span class="fw-bold">{{ userStore.arrondissementName }}</span>
+        </h3>
+      </v-col>
+      <v-col cols="12">
+        <h1 class="text-h3 text-purple mt-5 mb-2">
+          Bienvenue {{ userStore.fullName }}
+        </h1>
+      </v-col>
 
       <v-col cols="12" class="mt-5" v-if="alertStore.show">
         <v-alert :type="alertStore.type" :title="alertStore.title" closable>{{ alertStore.message }}</v-alert>

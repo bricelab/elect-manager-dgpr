@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\EventDispatcher\Event;
+namespace App\Event;
 
 use App\Entity\Arrondissement;
 use Symfony\Contracts\EventDispatcher\Event;

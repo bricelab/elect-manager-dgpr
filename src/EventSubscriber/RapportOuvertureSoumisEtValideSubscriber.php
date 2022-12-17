@@ -1,8 +1,8 @@
 <?php
 
-namespace App\EventDispatcher\EventSubscriber;
+namespace App\EventSubscriber;
 
-use App\EventDispatcher\Event\RapportOuvertureSoumisEtValideEvent;
+use App\Event\RapportOuvertureSoumisEtValideEvent;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
