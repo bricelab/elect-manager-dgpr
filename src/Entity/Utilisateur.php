@@ -157,12 +157,12 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPlainPassword(): string
+    public function getPlainPassword(): ?string
     {
         return $this->plainPassword;
     }
 
-    public function setPlainPassword(string $password): self
+    public function setPlainPassword(?string $password): self
     {
         $this->plainPassword = $password;
 
