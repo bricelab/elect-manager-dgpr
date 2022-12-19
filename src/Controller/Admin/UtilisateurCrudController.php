@@ -7,7 +7,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
@@ -26,6 +28,7 @@ class UtilisateurCrudController extends AbstractCrudController
         return $crud
             ->setEntityLabelInSingular('un utilisateur')
             ->setEntityLabelInPlural('Liste des utilisateurs')
+            ->setEntityPermission('ROLE_SUPER_ADMIN')
             ;
     }
 
@@ -44,14 +47,27 @@ class UtilisateurCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
+        $roles = [
+            'ROLE_USER',
+            'ROLE_ADMIN',
+            'ROLE_SUPER_ADMIN',
+        ];
+
         yield IdField::new('id', 'Identifiant')->onlyOnDetail();
         yield AssociationField::new('arrondissementCouvert', 'Arrondissement couvert');
         yield TextField::new('nom', 'Nom');
         yield TextField::new('prenoms', 'Prénoms');
         yield EmailField::new('email', 'Adresse mail');
-        yield TextField::new('password', 'Mot de passe')
-            ->onlyWhenCreating()
+        yield TextField::new('plainPassword', 'Mot de passe')
+            ->onlyOnForms()
             ->setFormType(PasswordType::class)
+        ;
+        yield ChoiceField::new('roles', 'Rôles')
+            ->renderAsBadges()
+            ->renderExpanded()
+            ->setChoices(array_combine($roles, $roles))
+            ->allowMultipleChoices()
+            ->setPermission('ROLE_SUPER_ADMIN')
         ;
     }
 }

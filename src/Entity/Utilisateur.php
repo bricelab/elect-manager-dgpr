@@ -36,6 +36,8 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
+    private ?string $plainPassword = null;
+
     #[ORM\Column(length: 255, nullable: true)]
     #[Groups(['read:Item:Me'])]
     private ?string $nom = null;
@@ -116,7 +118,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function eraseCredentials()
     {
         // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+         $this->plainPassword = null;
     }
 
     public function getNom(): ?string
@@ -151,6 +153,18 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function setArrondissementCouvert(?Arrondissement $arrondissementCouvert): self
     {
         $this->arrondissementCouvert = $arrondissementCouvert;
+
+        return $this;
+    }
+
+    public function getPlainPassword(): string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(string $password): self
+    {
+        $this->plainPassword = $password;
 
         return $this;
     }
