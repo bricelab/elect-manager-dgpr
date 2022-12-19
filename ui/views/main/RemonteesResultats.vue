@@ -15,7 +15,21 @@
           </div>
         </v-col>
         <v-col cols="12">
-          <v-select
+<!--          <v-select-->
+<!--              label="Centre de vote"-->
+<!--              clearable-->
+<!--              clear-icon="mdi-close-circle"-->
+<!--              :items="centresVote"-->
+<!--              type="object"-->
+<!--              item-title="nom"-->
+<!--              item-value="id"-->
+<!--              variant="underlined"-->
+<!--              v-model="centreVote"-->
+<!--              @update:modelValue="updatePosteVoteValues"-->
+<!--              single-line-->
+<!--          ></v-select>-->
+          <v-autocomplete
+
               label="Centre de vote"
               clearable
               clear-icon="mdi-close-circle"
@@ -26,7 +40,7 @@
               variant="underlined"
               v-model="centreVote"
               @update:modelValue="updatePosteVoteValues"
-          ></v-select>
+          ></v-autocomplete>
 
           <v-select
               label="Poste de vote"

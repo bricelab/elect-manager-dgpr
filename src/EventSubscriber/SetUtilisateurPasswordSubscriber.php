@@ -2,36 +2,32 @@
 
 namespace App\EventSubscriber;
 
-use ApiPlatform\Symfony\EventListener\EventPriorities;
 use App\Entity\Utilisateur;
+use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\ViewEvent;
-use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class SetUtilisateurPasswordSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private readonly UserPasswordHasherInterface $passwordHasher)
+    public function __construct(private readonly UserPasswordHasherInterface $encoder)
     {
     }
 
-    public function onKernelView(ViewEvent $event): void
+    public function onKernelView(BeforeEntityPersistedEvent $event): void
     {
-        $entity = $event->getControllerResult();
+        $user = $event->getEntityInstance();
 
-        if (!$entity instanceof Utilisateur) {
+        if (!$user instanceof Utilisateur) {
             return;
         }
 
-        $entity->setPassword($this->passwordHasher->hashPassword($entity, $entity->getPassword()));
+        $user->setPassword($this->encoder->hashPassword($user, $user->getPassword()));
     }
 
     public static function getSubscribedEvents(): array
     {
         return [
-            KernelEvents::VIEW => [
-                ['onKernelView', EventPriorities::PRE_WRITE],
-            ],
+            BeforeEntityPersistedEvent::class => ['onKernelView'],
         ];
     }
 }

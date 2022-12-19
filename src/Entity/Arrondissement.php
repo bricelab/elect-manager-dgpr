@@ -43,7 +43,7 @@ class Arrondissement
 
     public function __toString(): string
     {
-        return $this->nom;
+        return $this->getNom();
     }
 
     public function getId(): ?int
@@ -53,7 +53,7 @@ class Arrondissement
 
     public function getNom(): ?string
     {
-        return $this->nom;
+        return $this->nom . ' (' . $this->commune->getNom() . ')';
     }
 
     public function setNom(string $nom): self
